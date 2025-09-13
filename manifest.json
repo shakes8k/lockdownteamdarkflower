@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Lockdown Password Manager",
-  "version": "1.2.0",
-  "description": "Advanced password manager with intelligent suggestions, auto-save, and gamified security learning",
+  "version": "2.0.0",
+  "description": "Advanced password manager with Argon2id encryption, intelligent suggestions, auto-save, gamified security learning, and real-time breach detection",
   
   "permissions": [
     "storage",
@@ -22,7 +22,11 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["content.js", "password-assistant.js", "gamification.js"],
+      "js": [
+        "content.js", 
+        "password-assistant.js", 
+        "gamification.js"
+      ],
       "run_at": "document_idle",
       "all_frames": false
     }
@@ -30,7 +34,7 @@
   
   "action": {
     "default_popup": "popup.html",
-    "default_title": "Lockdown Password Manager - Quiz & Leaderboard Available!",
+    "default_title": "Lockdown Password Manager - Enhanced Security with Argon2id",
     "default_icon": {
       "16": "icons/icon-16.png",
       "32": "icons/icon-32.png", 
@@ -44,5 +48,21 @@
     "32": "icons/icon-32.png",
     "48": "icons/icon-48.png",
     "128": "icons/icon-128.png"
+  },
+
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "lib/argon2.wasm",
+        "lib/argon2-simd.wasm",
+        "icons/*.png",
+        "popup.html"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self';"
   }
 }
